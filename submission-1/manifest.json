@@ -1,0 +1,16 @@
+{
+    "name": "Tanam Pahala PWA",
+    "short_name": "TP",
+    "description": "Aplikasi TanamPahala.com berbasis PWA",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#00897B",
+    "theme_color": "#00897B",
+    "icons": [
+        {
+            "src": "favicon.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        }
+    ]
+}

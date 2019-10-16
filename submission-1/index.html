@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Galang Putratama - Gallery</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00897B"/>
+    <link rel="stylesheet" href="css/materialize.min.css">
+
+</head>
+<body>
+    <div id="navbar-content"></div>
+    
+    <div id="body-content" class="content"></div>
+
+    <div id="footer-content"></div>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/footer.js"></script>
+    <script>
+        // REGISTER SERVICE WORKER
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", function() {
+            navigator.serviceWorker
+                .register("./service-worker-tanampahala.js")
+                .then(function() {
+                console.log("Pendaftaran ServiceWorker berhasil");
+                })
+                .catch(function() {
+                console.log("Pendaftaran ServiceWorker gagal");
+                });
+            });
+        } else {
+            console.log("ServiceWorker belum didukung browser ini.");
+        }
+    </script>
+</body>
+
+
+</html>
