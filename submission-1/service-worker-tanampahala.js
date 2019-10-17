@@ -1,6 +1,7 @@
-const CACHE_NAME = "tanampahalaCache-1";
+const CACHE_NAME = "tanampahala-cache-2";
 var urlsToCache = [
   "./",
+  "./manifest.json",
   "./nav.html",
   "./index.html",
   "./footer.html",
@@ -18,24 +19,20 @@ var urlsToCache = [
   "./img/botol.jpg",
   "./img/buku-crop.jpg",
   "./img/buku.jpg",
-  "./img/dummy-169.jpg",
   "./img/kardus.jpg",
   "./img/karung-bekas.jpg",
   "./img/kertas.jpg",
   "./img/koin.jpg",
-  "./img/logo1.jpg",
+  "./img/logo1.png",
   "./img/masgalang.jpg",
-  "./img/minyak-crop.jpg",
-  "./img/quo.jpeg",
-  "./img/recehan.jpg"
+  "./img/minyak-crop.jpg"
 ];
  
 self.addEventListener("install", function(event) {
   event.waitUntil(
     caches.open(CACHE_NAME).then(function(cache) {
       return cache.addAll(urlsToCache)
-              .then(()=> console.log('Succesfully adding to cache'))
-              .catch((e)=> console.log(e));
+              .then(()=> console.log('Succesfully adding to cache'));
     })
   );
 });
