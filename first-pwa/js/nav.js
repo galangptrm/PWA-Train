@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 M.Sidenav.getInstance(sidenav).close();
        
                 // Muat konten halaman yang dipanggil
-                page = event.target.getAttribute("href").substr(1);
+                let page = event.target.getAttribute("href").substr(1);
                 loadPage(page);
               });
             });
@@ -31,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function() {
         };
         xhttp.open("GET", "nav.html", true);
         xhttp.send();
-      
     }
 
     // Load page content
