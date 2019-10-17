@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
   // Activate sidebar nav
-  
+  let elems = document.querySelectorAll(".sidenav");
+  M.Sidenav.init(elems); //M adalah object Materialize
+
   loadNav();
  
   function loadNav() {
@@ -9,15 +11,12 @@ document.addEventListener("DOMContentLoaded", function() {
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4) {
 
-          let navbar_container = document.querySelector('#navbar-content')
-
-          if (this.status != 200){
-            return;
-          } else {
-            navbar_container.innerHTML = xhttp.responseText;
-            let elems = document.querySelectorAll(".sidenav");
-            M.Sidenav.init(elems); //M adalah object Materialize
-          }
+          if (this.status != 200) return;
+          
+          // Muat daftar tautan menu
+          document.querySelectorAll(".topnav, .sidenav").forEach(function(elm) {
+            elm.innerHTML = xhttp.responseText;
+          });
           
           // Daftarkan event listener untuk setiap tautan menu
           document.querySelectorAll(".topnav a, .sidenav a").forEach(function(elm) {
