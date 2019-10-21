@@ -1,15 +1,21 @@
 {
     "name": "Tanam Pahala PWA",
-    "short_name": "TP",
+    "short_name": "Tanam Pahala Malang",
     "description": "Aplikasi TanamPahala.com berbasis PWA",
     "start_url": "/index.html",
     "display": "standalone",
+    "orientation": "potrait",
     "background_color": "#00897B",
     "theme_color": "#00897B",
     "icons": [
         {
             "src": "favicon.png",
             "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "favicon-192.png",
+            "sizes": "192x192",
             "type": "image/png"
         }
     ]

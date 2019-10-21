@@ -15,6 +15,7 @@ var urlsToCache = [
   "./js/nav.js",
   "./js/footer.js",
   "./favicon.png",
+  "./favicon-192.png",
   "./img/baju.jpg",
   "./img/botol.jpg",
   "./img/buku-crop.jpg",
