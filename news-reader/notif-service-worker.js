@@ -1,42 +1,34 @@
-// Periksa service worker
-if (!('serviceWorker' in navigator)) {
-    console.log("Service worker tidak didukung browser ini.");
-} else {
-    registerServiceWorker();
-}
-
-// Register service worker
-function registerServiceWorker() {
-    return navigator.serviceWorker.register('./notif-service-worker.js')
-        .then(function (registration) {
-        console.log('Registrasi service worker berhasil.');
-        return registration;
+const CACHE_NAME = "push-notification-v1";
+var urlsToCache = [
+  "./",
+  "./nav.html",
+  "./index.html",
+  "./article.html",
+  "./pages/home.html",
+  "./pages/about.html",
+  "./pages/contact.html",
+  "./css/materialize.min.css",
+  "./js/materialize.min.js",
+  "./js/nav.js",
+  "./js/api.js",
+  "./logo-icon.png"
+];
+ 
+self.addEventListener("install", function(event) {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(function(cache) {
+      return cache.addAll(urlsToCache);
     })
-        .catch(function (err) {
-        console.error('Registrasi service worker gagal.', err);
-    });
-}
+  );
+});
 
-// Periksa fitur Notification API
-if ("Notification" in window) {
-    requestPermission();
-} else {
-    console.error("Browser tidak mendukung notifikasi.");
-}
-// Meminta ijin menggunakan Notification API
-function requestPermission() {
-    Notification.requestPermission().then(function (result) {
-      if (result === "denied") {
-        console.log("Fitur notifikasi tidak diijinkan.");
-        return;
-      } else if (result === "default") {
-        console.error("Pengguna menutup kotak dialog permintaan ijin.");
-        return;
-      }
-      
-      console.log("Fitur notifikasi diijinkan.");
-    });
-}
+self.addEventListener("install", function(event) {
+    event.waitUntil(
+        caches.open(CACHE_NAME).then(function(cache) {
+        return cache.addAll(urlsToCache);
+        })
+    );
+});  
 
 self.addEventListener('notificationclick', function (event) {
     if (!event.action) {
@@ -57,4 +49,25 @@ self.addEventListener('notificationclick', function (event) {
         console.log(`Action yang dipilih tidak dikenal: '${event.action}'`);
         break;
     }
+});
+
+self.addEventListener('push', function(event) {
+    let body;
+    if (event.data) {
+      body = event.data.text();
+    } else {
+      body = 'Push message no payload';
+    }
+    let options = {
+      body: body,
+      icon: './logo-icon.png',
+      vibrate: [100, 50, 100],
+      data: {
+        dateOfArrival: Date.now(),
+        primaryKey: 1
+      }
+    };
+    event.waitUntil(
+      self.registration.showNotification('Push Notification', options)
+    );
 });
