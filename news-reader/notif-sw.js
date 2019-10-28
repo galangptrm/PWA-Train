@@ -22,14 +22,6 @@ self.addEventListener("install", function(event) {
   );
 });
 
-self.addEventListener("install", function(event) {
-    event.waitUntil(
-        caches.open(CACHE_NAME).then(function(cache) {
-        return cache.addAll(urlsToCache);
-        })
-    );
-});  
-
 self.addEventListener('notificationclick', function (event) {
     if (!event.action) {
       // Penguna menyentuh area notifikasi diluar action
