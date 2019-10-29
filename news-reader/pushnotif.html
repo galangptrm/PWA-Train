@@ -40,6 +40,7 @@
                     navigator.serviceWorker.getRegistration().then(function(reg) {
                         reg.pushManager.subscribe({
                             userVisibleOnly: true
+                            // applicationServerKey : 'QUFBQTJCcVdyR3c6QVBBOTFiR3lqM0szYzNMMHQxdWZKSGp1d0xZZkE4YXVQcUJrY2N4NW5WT1J1NzJnQlRUSEtfdFIyeUxkMkN4SFEybVphQXdPVl9HTzRER2tSSEU0TVFwR0lTWmxkTkNaSm16ajlWT01TNHNHd3MyZWtDU2p5YXJtRklaUklZZGhCSmRjLXY1aHozVXE'
                         }).then(function(sub) {
                             console.log('Berhasil melakukan subscribe dengan endpoint: ', sub.endpoint);
                         }).catch(function(e) {
