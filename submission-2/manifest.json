@@ -1,0 +1,10 @@
+{
+    "name" : "FootBall Me",
+    "short_name": "FootBall Me",
+    "description": "",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "orientation": "potrait",
+    "background_color": "#00897B",
+    "theme_color": "#00897B"
+}
