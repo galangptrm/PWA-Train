@@ -30,26 +30,29 @@ document.addEventListener("DOMContentLoaded", function() {
           }
         };
         xhttp.open("GET", "nav.html", true);
-        xhttp.send();
+      xhttp.send();
     }
 
     // Load page content
     var page = window.location.hash.substr(1);
-    if (page == "") page = "liga";
+    if (page == ""){
+      page = "liga";
+      console.log(page);
+    } 
     loadPage(page);
     
     function loadPage(page) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4) {
-        var content = document.querySelector("#body-content");
-        if (this.status == 200) {
-            content.innerHTML = xhttp.responseText;
-        } else if (this.status == 404) {
-            content.innerHTML = "<p>Halaman tidak ditemukan.</p>";
-        } else {
-            content.innerHTML = "<p>Ups.. halaman tidak dapat diakses.</p>";
-        }
+            let content = document.querySelector("#body-content");
+            if (this.status == 200) {
+                content.innerHTML = xhttp.responseText;
+            } else if (this.status == 404) {
+                content.innerHTML = "<p>Halaman tidak ditemukan.</p>";
+            } else {
+                content.innerHTML = "<p>Ups.. halaman tidak dapat diakses.</p>";
+            }
         }
     };
     xhttp.open("GET", "pages/" + page + ".html", true);

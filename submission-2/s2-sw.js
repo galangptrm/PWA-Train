@@ -11,6 +11,8 @@ let component_layout_to_cache = [
     "./nav.html",
     "./manifest.json",
     "./css/materialize.min.css",
+    "./css/font.css",
+    "./font/material-icon.woff2",
     "./js/materialize.min.js",
     "./js/nav.js",
     "./js/api_football.js"
