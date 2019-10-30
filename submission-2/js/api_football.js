@@ -27,7 +27,7 @@ function get_competitions() {
                         <p class="title"><b>${tabel.position}</b></p>
                     </div>
                     <div class="col s5 m5 l5 xl5">
-                        <a href="./tim.html?id=${tabel.team.id}">
+                        <a href="./tim.html?tim_id=${tabel.team.id}&limit=10">
                             <span class="title">${tabel.team.name}</span>
                         </a>
                     </div>
@@ -52,6 +52,167 @@ function get_competitions() {
         });
         document.getElementById('liga-list').innerHTML = "";
         document.getElementById('liga-list').innerHTML = ligaHTML;
+    });
+}
+
+function get_team(id_tim) {
+    let url = BASE_URL+'teams/'+id_tim;
+    
+    fetch(url, {
+        method : "GET",
+        headers : {
+            'X-Auth-Token' : TOKEN
+        }
+    })
+    .then(status)
+    .then(json)
+    .then((data)=>{
+        console.log(data);
+
+        // Menyusun komponen card artikel secara dinamis
+        let teamBanner = `
+                <div class="container">
+                    <div class="col s2">
+                    <h5>
+                        <img class="circle responsive-img" src="${data.crestUrl}" 
+                        alt="${data.shortName}">
+                    </h5>
+                    </div>
+                    <div class="col s10">
+                        <h5>${data.name}</h5>
+                        ${data.area.name}
+                    </div>
+                </div>
+            `;
+
+        let teamDetailHTML = `
+            <div class="container">
+                <table class="striped">
+                    <tbody>
+                        <tr>
+                            <td><b>Alamat</b></td>
+                            <td>${data.address}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Telpon</b></td>
+                            <td>${data.phone}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Website</b></td>
+                            <td><a href="${data.website}" target="_blank">${data.website}</a></td>
+                        </tr>
+                        <tr>
+                            <td><b>Email</b></td>
+                            <td>${data.email}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Berdiri</b></td>
+                            <td>${data.founded}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Markas</b></td>
+                            <td>${data.venue}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            `;
+
+        let teamPlayersHTML = `
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Posisi</th>
+                        <th>Kewarganegaraan</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+        let index = 0;
+        data.squad.forEach((p)=>{
+            index++;
+            teamPlayersHTML += `
+                <tr>
+                    <td>${index}</td>
+                    <td>${p.name} (${p.shirtNumber})</td>
+                    <td>${p.position}<br><small>${p.role}</small></td>
+                    <td>${p.nationality}</td>
+                </tr>
+            `;
+        });
+        teamPlayersHTML += `
+                </tbody>    
+            </table>    
+            `;
+
+        document.getElementById('tim-banner').innerHTML = "";
+        document.getElementById('tim-banner').innerHTML = teamBanner;
+
+        document.getElementById('tim-info-list').innerHTML = "";
+        document.getElementById('tim-info-list').innerHTML = teamDetailHTML;
+
+        document.getElementById('tim-players-list').innerHTML = "";
+        document.getElementById('tim-players-list').innerHTML = teamPlayersHTML;
+    });
+}
+
+function get_team_matches(id_tim, limit) {
+    let url = BASE_URL+'teams/'+id_tim+'/matches?limit='+limit;
+    
+    fetch(url, {
+        method : "GET",
+        headers : {
+            'X-Auth-Token' : TOKEN
+        }
+    })
+    .then(status)
+    .then(json)
+    .then((data)=>{
+        console.log(data);
+
+        // Menyusun komponen card artikel secara dinamis
+        let teamMatchesHTML = `
+            <div class="row">
+        `;
+
+        data.matches.forEach((m)=>{
+            teamMatchesHTML += `
+            <div class="col s12">
+                <div class="card-panel grey lighten-5 z-depth-1">
+                    <div class="row">
+                        <div class="col s3"></div>
+                        <div class="col s6 center"><b>${m.competition.name}</b></div>
+                        <div class="col s3"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col s5">
+                            <span class="black-text">
+                                ${m.homeTeam.name}
+                            </span>
+                        </div>
+                        <div class="col s2">
+                            <span class="black-text">
+                                <b>${m.score.fullTime.homeTeam}</b>
+                                <b>-</b>
+                                <b>${m.score.fullTime.awayTeam}</b>
+                            </span>
+                        </div>
+                        <div class="col s5">
+                            <span class="black-text">
+                                ${m.awayTeam.name}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `;
+        });
+        teamMatchesHTML += `</div>`;
+
+        document.getElementById('tim-matches-list').innerHTML = "";
+        document.getElementById('tim-matches-list').innerHTML = teamMatchesHTML;
     });
 }
     
