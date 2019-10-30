@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>404 Not Found Football</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/materialize.min.css">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#00897B"/>
+
+</head>
+<body>
+
+    <!-- Navigasi -->
+    <nav class="teal lighten-1" role="navigation">
+        <div class="nav-wrapper container">
+            <a href="#" class="brand-logo" id="logo-container">
+                404 <small>FootBall</small>
+            </a>
+            <a href="#" class="sidenav-trigger" data-target="nav-mobile">☰</a>
+            
+            <ul class="topnav right hide-on-med-and-down"></ul>
+            <ul class="sidenav" id="nav-mobile"></ul>
+        </div>
+    </nav>
+
+    <div class="container" id="body-content"></div>
+
+    <script src="./js/materialize.min.js"></script>
+    <script src="./js/api_football.js"></script>
+    <script src="./js/nav.js"></script>
+    
+    <!-- Register Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+            .register("./s2-sw.js")
+            .then(()=>{
+                console.log("Service Worker registered");
+            })
+            .catch((e)=>{
+                console.error("Failed Regiter Service Worker", e.message);
+
+            })
+        }else{
+            console.warn("Service Worker not supported in this browser");
+        }
+
+        // INIT REQUEST API
+        document.addEventListener("DOMContentLoaded", ()=>{
+            get_competitions(2021);
+        });
+
+    </script>
+</body>
+</html>

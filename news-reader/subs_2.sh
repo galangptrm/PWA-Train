@@ -1,0 +1,2 @@
+curl -i -H 'Content-type: application/json' -H 'Authorization: key=AAAAhZPWl5s:APA91bH2-4c67ON3zho6bUmO-BOXyUX72U7JskFD9cBScdxbdet_kj_fatJLbua0KAgC9sJ69-atW7ivNt8v8ODCfqBwGHoYT-FVMUv7LisPr7AthQjQsGtobrfLnsFDB3kwdqHWjYfE' 
+-XPOST https://fcm.googleapis.com/fcm/send/dkhbhBfN8fs:APA91bFxJb6hfOF07x7yI4x0jp17Lpi-DZVKW_aIHrEQzfppxm39GUOHIlfW3C3YTSmlbaCIKMWIYNRnjaP5SUYu-FiWKeRhpqP38UUZytbGDAKr_2fX02-jA6q7OdjafnfSV_KZz8f5 -d 
