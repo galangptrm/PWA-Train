@@ -20,30 +20,30 @@ function get_competitions() {
             ligaHTML += `
             <li class="collection-item avatar">
                 <div class="row">
-                    <div class="col s1 m1 l1 xl1">
-                        <img src="${tabel.team.crestUrl}" alt="" class="circle img-responsive">
-                    </div>
-                    <div class="col s1 m1 l1 xl1">
+                    
+                    <img src="${tabel.team.crestUrl}" alt="" class="circle img-responsive">
+                    
+                    <div class="col s2 m1 l1 xl1">
                         <p class="title"><b>${tabel.position}</b></p>
                     </div>
-                    <div class="col s5 m5 l5 xl5">
+                    <div class="col s9 m5 l5 xl5">
                         <a href="./tim.html?tim_id=${tabel.team.id}&limit=10">
                             <span class="title">${tabel.team.name}</span>
                         </a>
                     </div>
-                    <div class="col s1 m1 l1 xl1 center">
+                    <div class="col s2 m1 l1 xl1 center">
                         <b>MP</b> <br> ${tabel.playedGames}
                     </div>
-                    <div class="col s1 m1 l1 xl1 center">
+                    <div class="col s2 m1 l1 xl1 center" style="border-left : 1px solid #9e9e9e">
                         <b>W</b> <br> ${tabel.won}
                     </div>
-                    <div class="col s1 m1 l1 xl1 center">
+                    <div class="col s2 m1 l1 xl1 center" style="border-left : 1px solid #9e9e9e">
                         <b>D</b> <br> ${tabel.draw}
                     </div>
-                    <div class="col s1 m1 l1 xl1 center">
+                    <div class="col s2 m1 l1 xl1 center" style="border-left : 1px solid #9e9e9e">
                         <b>L</b> <br> ${tabel.lost}
                     </div>
-                    <div class="col s1 m1 l1 xl1 center">
+                    <div class="col s2 m1 l1 xl1 center" style="border-left : 1px solid #9e9e9e">
                         <b>Pts</b> <br> ${tabel.points}
                     </div>
                 </div>
@@ -78,7 +78,7 @@ function get_team(id_tim) {
                         alt="${data.shortName}">
                     </h5>
                     </div>
-                    <div class="col s10">
+                    <div class="col s10" style="color:#FFFFFF">
                         <h5>${data.name}</h5>
                         ${data.area.name}
                     </div>
@@ -125,7 +125,7 @@ function get_team(id_tim) {
                         <th>No</th>
                         <th>Nama</th>
                         <th>Posisi</th>
-                        <th>Kewarganegaraan</th>
+                        <th>Negara</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -133,11 +133,14 @@ function get_team(id_tim) {
         let index = 0;
         data.squad.forEach((p)=>{
             index++;
+            let position = p.position != null ? p.position : '-'; 
+            let shirt_number = p.shirtNumber != null ? p.shirtNumber : '-'; 
+            let role = p.role != null ? p.role : '-'; 
             teamPlayersHTML += `
                 <tr>
                     <td>${index}</td>
-                    <td>${p.name} (${p.shirtNumber})</td>
-                    <td>${p.position}<br><small>${p.role}</small></td>
+                    <td>${p.name} (${shirt_number})</td>
+                    <td>${position}<br><small>${role}</small></td>
                     <td>${p.nationality}</td>
                 </tr>
             `;
@@ -187,19 +190,19 @@ function get_team_matches(id_tim, limit) {
                         <div class="col s3"></div>
                     </div>
                     <div class="row">
-                        <div class="col s5">
+                        <div class="col s4 m5">
                             <span class="black-text">
                                 ${m.homeTeam.name}
                             </span>
                         </div>
-                        <div class="col s2">
+                        <div class="col s4 m2 center">
                             <span class="black-text">
                                 <b>${m.score.fullTime.homeTeam}</b>
                                 <b>-</b>
                                 <b>${m.score.fullTime.awayTeam}</b>
                             </span>
                         </div>
-                        <div class="col s5">
+                        <div class="col s4 m5">
                             <span class="black-text">
                                 ${m.awayTeam.name}
                             </span>
