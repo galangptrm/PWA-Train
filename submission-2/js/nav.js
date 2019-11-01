@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
           }
         };
-        xhttp.open("GET", "nav.html", true);
+        xhttp.open("GET", "../nav.html", true);
       xhttp.send();
     }
 
@@ -37,7 +37,6 @@ document.addEventListener("DOMContentLoaded", function() {
     var page = window.location.hash.substr(1);
     if (page == ""){
       page = "liga";
-      console.log(page);
     } 
     loadPage(page);
     

@@ -1,6 +1,8 @@
 const BASE_URL = "https://api.football-data.org/v2/";
 const TOKEN = "78fdf28ebc864284b61dd70ee83b5242";
 
+let url = new URLSearchParams(window.location.search);
+
 function get_competitions() {
     let url = BASE_URL+'competitions/2021/standings';
     
@@ -55,6 +57,24 @@ function get_competitions() {
     });
 }
 
+
+
+function get_team_only(id_tim) {
+    let url = BASE_URL+'teams/'+id_tim;
+    
+    fetch(url, {
+        method : "GET",
+        headers : {
+            'X-Auth-Token' : TOKEN
+        }
+    })
+    .then(status)
+    .then(json)
+    .then((data)=>{
+        addTimFavorit(data);
+    });
+}
+
 function get_team(id_tim) {
     let url = BASE_URL+'teams/'+id_tim;
     
@@ -68,19 +88,27 @@ function get_team(id_tim) {
     .then(json)
     .then((data)=>{
         console.log(data);
-
+        
         // Menyusun komponen card artikel secara dinamis
         let teamBanner = `
                 <div class="container">
                     <div class="col s2">
-                    <h5>
-                        <img class="circle responsive-img" src="${data.crestUrl}" 
-                        alt="${data.shortName}">
-                    </h5>
+                        <h5>
+                            <img class="circle responsive-img" src="${data.crestUrl}" 
+                            alt="${data.shortName}">
+                        </h5>
                     </div>
                     <div class="col s10" style="color:#FFFFFF">
                         <h5>${data.name}</h5>
                         ${data.area.name}
+                    </div>
+                    <br>
+                    <div class="row"></div>
+                    <div class="col s2"></div>
+                    <div class="col s10" style="color:#FFFFFF">
+                        <a id="fav-btn" class="waves-effect waves-light btn btn-small amber" onclick="tambahTimFavorit(${data.id})">
+                            <i class="material-icons tiny right">add_circle</i>Favoritkan
+                        </a>
                     </div>
                 </div>
             `;
@@ -216,6 +244,8 @@ function get_team_matches(id_tim, limit) {
 
         document.getElementById('tim-matches-list').innerHTML = "";
         document.getElementById('tim-matches-list').innerHTML = teamMatchesHTML;
+
+        return data;
     });
 }
     

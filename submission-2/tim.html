@@ -65,6 +65,8 @@
 
     <script src="./js/materialize.min.js"></script>
     <script src="./js/api_football.js"></script>
+    <script src="./js/idb.js"></script>
+    <script src="./js/db.js"></script>
 
     <script>
         // REGISTER SERVICE WORKER
@@ -85,7 +87,9 @@
         // REQUEST API UNTUK PERTAMA KALI
         document.addEventListener("DOMContentLoaded", function() {
             let url = new URLSearchParams(window.location.search);
+            
             get_team(url.get('tim_id'));
+
             get_team_matches(url.get('tim_id'), url.get('limit'));
 
             let tabs = document.getElementById('tabs');
@@ -94,7 +98,10 @@
                 swipeable : false
             });
         });
-        
+
+        function tambahTimFavorit(team_id) {
+            get_team_only(team_id);
+        }
     </script>
 </body>
 
