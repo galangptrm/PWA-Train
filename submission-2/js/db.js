@@ -32,8 +32,8 @@ let dbPromise = idb.open("football_db", 1, function(upgradeDb) {
 });
 
 function addTimFavorit(data) {
-    console.log(data);
     dbPromise.then((db)=>{
+        let img_url = data.crestUrl.replace(/^http:\/\//i, 'https://');
         let trans = db.transaction('tb_team', 'readwrite');
         let store = trans.objectStore('tb_team');
         let item = {
@@ -42,7 +42,7 @@ function addTimFavorit(data) {
             area: data.area.name,
             address: data.address,
             short_name: data.short_name,
-            logo: data.crestUrl,
+            logo: img_url,
             phone: data.phone,
             web: data.website,
             email: data.email,
@@ -54,46 +54,130 @@ function addTimFavorit(data) {
         return trans.complete;
     }).then(()=>{
         console.log("Database berhasil tersimpan");
+        _notification('Tersimpan', 'Berhasil menambahkan Tim Favorit');
     }).catch((e)=>{
-        console.error(e.message);
+        console.error(e);
+    });
+}
+
+function getTimFavorit() {
+    document.getElementById('title-bar').innerHTML = "Tim Favorit";
+    dbPromise.then((db)=>{
+        let trans = db.transaction('tb_team', 'readwrite');
+        let store = trans.objectStore('tb_team');
+        return store.getAll();
+    }).then((data)=>{
+        
+        console.log("Berhasil mendapatkan data "+data.length+" tim favorit");
+        console.log(data);
+
+        if (data.length < 1) {
+            document.getElementById('favorit-list').innerHTML = "Anda belum memiliki Tim Favorit";
+        } else {
+            let favoritHTML = "";
+        
+            data.forEach(tim => {
+                
+                favoritHTML += `
+                    <li class="collection-item avatar">
+                        <div class="row">
+                            
+                            <img src="${tim.logo}" alt="" class="circle img-responsive">
+                            
+                            <div class="col s12">
+                                <a href="./tim.html?tim_id=${tim.team_id}&limit=10">
+                                    <span class="title">${tim.name}</span> <br>
+                                    <small>${tim.area}</small>
+                                </a>
+                            </div>
+                            <div class="col s12 center">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <small><b>Alamat</b></small><br>
+                                            ${tim.address}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small><b>Telpon</b></small><br>
+                                            ${tim.phone}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small><b>Website</b></small><br>
+                                            <a href="${tim.web}" target="_blank">${tim.web}</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small><b>Email</b></small><br>
+                                            ${tim.email}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small><b>Berdiri</b></small><br>
+                                            ${tim.founded}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small><b>Markas</b></small><br>
+                                            ${tim.venue}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a class="btn" 
+                                                onclick="deleteTimFavorit(${tim.team_id})">
+                                                Hapus
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </li>
+                `;
+            });
+    
+            document.getElementById('favorit-list').innerHTML = "";
+            document.getElementById('favorit-list').innerHTML = favoritHTML;
+            
+        }
+        
+    }).catch((e)=>{
+        console.error(e);
+    });
+}
+
+function deleteTimFavorit(team_id) {
+    dbPromise.then((db)=>{
+        let trans = db.transaction('tb_team', 'readwrite');
+        let store = trans.objectStore('tb_team');
+        return store.delete(team_id);
+    }).then((data)=>{
+        console.log(data);
+        _notification('Terhapus', 'Berhasil menghapus Tim Favorit');
+        location.reload();
+    }).catch((e)=>{
+        console.error(e);
     });
 }
 
 
-// dbPromise.then(function(db) {
-//         let tx = db.transaction('buku', 'readwrite');
-//         let store = tx.objectStore('buku');
-//         let item = {
-//             judul: 'Menjadi Android Developer Expert (MADE)',
-//             isbn: 123456789,
-//             description: 'Belajar pemrograman Android di Dicoding dengan modul online dan buku.',
-//             created: new Date().getTime()
-//         };
-//         // mengambil primary key berdasarkan isbn
-//         store.get(123456789);
-//         store.add(item, 123456789); //menambahkan key "buku"
-//         return tx.complete;
-//     }).then(function() {
-//         console.log('Buku berhasil disimpan.');
-//     }).catch(function() {
-//         console.log('Buku gagal disimpan.')
-// });
-
-// dbPromise.then(function(db) {
-//         let tx = db.transaction('buku', 'readonly');
-//         let store = tx.objectStore('buku');
-//         return store.openCursor();
-//     })
-//     .then(function ambilBuku(cursor) {
-//         if (!cursor) {
-//             return;
-//         }
-//         console.log('Posisi cursos: ', cursor.key);
-//         for (let field in cursor.value) {
-//             console.log(cursor.value[field]);
-//         }
-//         return cursor.continue().then(ambilBuku);
-//     })
-//     .then(function() {
-//     console.log('Tidak ada data lain.');
-// });
+function _notification(title, body) {
+    const options = {
+        'body': body,
+        'icon': './ball-192.png'
+    }
+    if (Notification.permission === 'granted') {
+        navigator.serviceWorker.ready.then(function(registration) {
+            registration.showNotification(title, options);
+        });
+    } else {
+        console.error('FItur notifikasi tidak diijinkan.');
+    }
+}
