@@ -38,6 +38,7 @@
     <script src="./js/api_football.js"></script>
     <script src="./js/idb.js"></script>
     <script src="./js/db.js"></script>
+
     <!-- Register Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
@@ -85,10 +86,9 @@
                     userVisibleOnly: true,
                     applicationServerKey:"BGPNymLyFVNQ_zheoJf3bqDsK6vBjFowmIhIpiH1NwsWMomNs7nsfG2XGCYYIYHOcGHJm1GRYYLam0bdr57R_AA"
                 }).then(function(sub) {
-                    console.log('Berhasil melakukan subscribe dengan endpoint: ', 
-                    sub);
-                    console.log('Berhasil melakukan subscribe dengan endpoint: ', 
-                    sub.endpoint);
+                    console.log('Berhasil melakukan subscribe dengan endpoint: ', sub.endpoint);
+                    console.log('Berhasil melakukan subscribe dengan p256dh key: ', btoa(String.fromCharCode.apply(null, new Uint8Array(sub.getKey('p256dh')))));
+                    console.log('Berhasil melakukan subscribe dengan auth key: ', btoa(String.fromCharCode.apply(null, new Uint8Array(sub.getKey('auth')))));
                 }).catch(function(e) {
                     console.error('Tidak dapat melakukan subscribe ', e.message);
                 });
