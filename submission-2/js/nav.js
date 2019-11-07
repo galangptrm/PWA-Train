@@ -41,12 +41,9 @@ document.addEventListener("DOMContentLoaded", function() {
     loadPage(page);
     
     function loadPage(page) {
-      console.log(page);
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() 
       {
-        console.log(this.status);
-        console.log(this.readyState);
           if (this.readyState == 4) {
               let content = document.querySelector("#body-content");
               if (this.status == 200) {

@@ -55,6 +55,7 @@ function addTimFavorit(data) {
     }).then(()=>{
         console.log("Database berhasil tersimpan");
         _notification('Tersimpan', 'Berhasil menambahkan Tim Favorit');
+        // _pushNotification();
     }).catch((e)=>{
         console.error(e);
     });
@@ -180,4 +181,8 @@ function _notification(title, body) {
     } else {
         console.error('FItur notifikasi tidak diijinkan.');
     }
+}
+
+function _pushNotification() {
+    webPush.sendNotification(pushSubscription, 'Ada');
 }

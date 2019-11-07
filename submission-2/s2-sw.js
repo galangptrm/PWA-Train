@@ -21,7 +21,8 @@ let component_layout_to_cache = [
     "./ball-500.png",
     "./pages/favorit.html",
     "./pages/liga.html",
-    "./tim.html"
+    "./tim.html",
+    "./main.js"
 ]
 
 self.addEventListener("install", function (event) {

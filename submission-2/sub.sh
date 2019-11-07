@@ -1,2 +1,0 @@
-curl "https://fcm.googleapis.com/fcm/send/cbLhaQYg8Q0:APA91bEasmGyAHgzVvwSJukAZemYvH9-gvwPWkdonco1dq63iy5KaXwU0wwuRI1GMivyM7UAvHr5Ggg6kztO6EgnUUb36JeEo6TVQF38Mq0hrK61AVpeQBppRMMkJ28e8f0_oMRZGQRB" --request POST --header "TTL: 60" --header "Content-Length: 0" \
---header "Authorization: key=AAAAhZPWl5s:APA91bH2-4c67ON3zho6bUmO-BOXyUX72U7JskFD9cBScdxbdet_kj_fatJLbua0KAgC9sJ69-atW7ivNt8v8ODCfqBwGHoYT-FVMUv7LisPr7AthQjQsGtobrfLnsFDB3kwdqHWjYfE"

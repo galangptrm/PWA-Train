@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
     <title>404 Not Found Football</title>
 
     <!-- CSS -->
+    <link rel="icon" href="./ball-144.png" type="image/png" sizes="144x144">
     <link rel="stylesheet" href="./css/materialize.min.css">
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#4CAF50"/>
@@ -34,6 +36,7 @@
     <div class="container" id="body-content"></div>
 
     <script src="./js/materialize.min.js"></script>
+    <script src="./web-push/main.js"></script>
     <script src="./js/nav.js"></script>
     <script src="./js/api_football.js"></script>
     <script src="./js/idb.js"></script>
@@ -77,14 +80,14 @@
                 console.log("Fitur notifikasi diijinkan.");
             });    
         }
-
+        const publicKey = ""
         // Push Notification
         if (('PushManager' in window)) {
             navigator.serviceWorker.getRegistration()
             .then(function(reg) {
                 reg.pushManager.subscribe({
                     userVisibleOnly: true,
-                    applicationServerKey:"BGPNymLyFVNQ_zheoJf3bqDsK6vBjFowmIhIpiH1NwsWMomNs7nsfG2XGCYYIYHOcGHJm1GRYYLam0bdr57R_AA"
+                    applicationServerKey: "BIwFGq9rha5D8PXxSXNLaqQlz6uIQXrGQHgybdz-5Mms2Ol_lwkRTOXXs-ZKjbhK719oLZEf6AW3Guue5n09jZ8"
                 }).then(function(sub) {
                     console.log('Berhasil melakukan subscribe dengan endpoint: ', sub.endpoint);
                     console.log('Berhasil melakukan subscribe dengan p256dh key: ', btoa(String.fromCharCode.apply(null, new Uint8Array(sub.getKey('p256dh')))));
