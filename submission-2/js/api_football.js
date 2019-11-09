@@ -19,33 +19,35 @@ function get_competitions() {
         data.standings[0].table.forEach(function (tabel) {
             ligaHTML += `
             <li class="collection-item avatar">
-                <div class="row">
-                    <div class="col s1 m1 l1 xl1">
-                        <img src="${tabel.team.crestUrl}" alt="" class="circle">
-                    </div>
-                    <div class="col s1 m1 l1 xl1">
+                <div class="row" style="margin-bottom: 0px;">
+
+                    <img src="${tabel.team.crestUrl}" alt="" class="circle">
+                    
+                    <div class="col s2 m1 l1 xl1">
                         <p class="title"><b>${tabel.position}</b></p>
                     </div>
-                    <div class="col s5 m5 l5 xl5">
+                    <div class="col s10 m5 l5 xl5">
                         <a href="./tim.html?tim_id=${tabel.team.id}&limit=10">
                             <span class="title">${tabel.team.name}</span>
                         </a>
                     </div>
-                    <div class="col s1 m1 l1 xl1 center">
+                    <div class="col s1 m1 l1 xl1 center"></div>
+                    <div class="col s2 m1 l1 xl1 center">
                         <b>MP</b> <br> ${tabel.playedGames}
                     </div>
-                    <div class="col s1 m1 l1 xl1 center">
+                    <div class="col s2 m1 l1 xl1 center">
                         <b>W</b> <br> ${tabel.won}
                     </div>
-                    <div class="col s1 m1 l1 xl1 center">
+                    <div class="col s2 m1 l1 xl1 center">
                         <b>D</b> <br> ${tabel.draw}
                     </div>
-                    <div class="col s1 m1 l1 xl1 center">
+                    <div class="col s2 m1 l1 xl1 center">
                         <b>L</b> <br> ${tabel.lost}
                     </div>
-                    <div class="col s1 m1 l1 xl1 center">
+                    <div class="col s2 m1 l1 xl1 center">
                         <b>Pts</b> <br> ${tabel.points}
                     </div>
+                    <div class="col s1 m1 l1 xl1 center"></div>
                 </div>
             </li>
             `;
@@ -78,7 +80,7 @@ function get_team(id_tim) {
                         alt="${data.shortName}">
                     </h5>
                     </div>
-                    <div class="col s10">
+                    <div class="col s10" style="color:#FFFFFF">
                         <h5>${data.name}</h5>
                         ${data.area.name}
                     </div>
@@ -187,19 +189,19 @@ function get_team_matches(id_tim, limit) {
                         <div class="col s3"></div>
                     </div>
                     <div class="row">
-                        <div class="col s5">
+                        <div class="col s4 m5 l5 xl5">
                             <span class="black-text">
                                 ${m.homeTeam.name}
                             </span>
                         </div>
-                        <div class="col s2">
+                        <div class="col s4 m2 l2 xl2 center">
                             <span class="black-text">
                                 <b>${m.score.fullTime.homeTeam}</b>
                                 <b>-</b>
                                 <b>${m.score.fullTime.awayTeam}</b>
                             </span>
                         </div>
-                        <div class="col s5">
+                        <div class="col s4 m5 l5 xl5">
                             <span class="black-text">
                                 ${m.awayTeam.name}
                             </span>
